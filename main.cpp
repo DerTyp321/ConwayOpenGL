@@ -76,7 +76,7 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
         	glfwSetWindowShouldClose(window, true);
     		break;
     	case GLFW_KEY_PERIOD:
-        	if(upsGoal < 2048)upsGoal *= 2.0;
+        	if(upsGoal < 65536.0)upsGoal *= 2.0;
     		break;
     	case GLFW_KEY_COMMA:
     		if(upsGoal > 1)upsGoal /= 2.0;
