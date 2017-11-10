@@ -117,7 +117,19 @@ void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods){
     }
 }
 
-int main(){
+int main(int argc, const char* argv[]){
+
+	std::string imagePath;
+
+	for(int i = 0; i < argc - 1; i++){
+		if(strcmp(argv[i], "-img") == 0 || strcmp(argv[i], "-i") == 0){
+			imagePath = std::string(argv[i+1]);
+		}
+		if(strcmp(argv[i], "-ups") == 0 || strcmp(argv[i], "-u") == 0){
+			std::cout << argv[i+1];
+			upsGoal = std::stof(argv[i+1]);
+		}
+	}
 
 	if (!glfwInit())
 	{
@@ -172,7 +184,8 @@ int main(){
 	conwayShader.addUniform("size");
 
 	int width, height, channels;
-	unsigned char* image = stbi_load("res/conway4.png", &width, &height, &channels, STBI_rgb_alpha);
+
+	unsigned char* image = stbi_load(imagePath.c_str(), &width, &height, &channels, STBI_rgb_alpha);
 
 	GLuint fbo;
 	glGenFramebuffers(1, &fbo);
