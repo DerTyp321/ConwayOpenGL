@@ -76,7 +76,7 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
         	glfwSetWindowShouldClose(window, true);
     		break;
     	case GLFW_KEY_PERIOD:
-        	if(upsGoal < 2048)upsGoal *= 2.0;
+        	if(upsGoal < 65536.0)upsGoal *= 2.0;
     		break;
     	case GLFW_KEY_COMMA:
     		if(upsGoal > 1)upsGoal /= 2.0;
@@ -126,7 +126,6 @@ int main(int argc, const char* argv[]){
 			imagePath = std::string(argv[i+1]);
 		}
 		if(strcmp(argv[i], "-ups") == 0 || strcmp(argv[i], "-u") == 0){
-			std::cout << argv[i+1];
 			upsGoal = std::stof(argv[i+1]);
 		}
 	}
@@ -173,6 +172,7 @@ int main(int argc, const char* argv[]){
 
 	screenShader.addUniform("transform");
 	screenShader.addUniform("size");
+	screenShader.addUniform("scale");
 
 
 	Shader conwayShader("res/conway_step.vert", "res/conway_step.frag");
@@ -308,6 +308,7 @@ int main(int argc, const char* argv[]){
 		glm::mat4 projection = glm::ortho(0.0f, (float)WIDTH, (float)HEIGHT, 0.0f, -1.0f, 1.0f);
 		glm::mat4 transform = projection * model;
 		screenShader.setUniform("transform", transform);
+		screenShader.setUniform("scale", 0.5f / scale);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, buffers[drawBuffer]);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);

@@ -4,3 +4,6 @@
 /.project
 /rel1/
 /conway_source.tar
+/ConwayOpenGL.vcxproj
+/ConwayOpenGL.vcxproj.filters
+/ConwayOpenGL.vcxproj.user
