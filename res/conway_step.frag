@@ -28,11 +28,21 @@ void main(){
 		sample(-1,  1) +
 		sample( 0,  1) +
 		sample( 1,  1);
+
+	int value = 
+		1*sample(-1, -1) +
+		2*sample( 0, -1) +
+		4*sample( 1, -1) +
+		8*sample(-1,  0) +
+		16*sample( 1,  0) +
+		32*sample(-1,  1) +
+		64*sample( 0,  1) +
+		128*sample( 1,  1);
 				
 	int color = sampleValue(0, 0);
 	if(color > 0){
 		if(neighbours >= 2 && neighbours <= 3){
-			out_color = vec4((float(neighbours) + 1.1) / 256.0, 0.0, 0.0, 1.0);
+			out_color = vec4((float(value) + 0.1) / 256.0, 0.0, 0.0, 1.0);
 		}else{
 			out_color = vec4(0.0, 0.0, 0.0, 1.0);
 		}

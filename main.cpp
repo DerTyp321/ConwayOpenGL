@@ -205,8 +205,8 @@ int main(int argc, const char* argv[]){
 	}
 
 	GLenum edgeMode;
-	edgeMode = GL_CLAMP_TO_BORDER;
-	//edgeMode = GL_REPEAT;
+	//edgeMode = GL_CLAMP_TO_BORDER;
+	edgeMode = GL_REPEAT;
 
 	float border[] = {0.0f, 0.0f, 0.0f, 1.0f};
 	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border);

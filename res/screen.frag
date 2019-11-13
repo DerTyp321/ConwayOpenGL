@@ -118,8 +118,7 @@ void main(){
 	if(age >= 1.0f / 256.0f && centerDist < 1.0) {
 		normal = vec3(inTilePos.x, inTilePos.y, sqrt(1-dot(inTilePos, inTilePos)));
 		pos = vec3(pos.xy, normal.z * SPHERE_RADIUS + SPHERE_HEIGHT);
-		//albedo = hsv2rgb(vec3(fract(sin(pos.x / 10.0) * cos(pos.y / 10.0)), 1.0, 1.0));
-		albedo = hsv2rgb(vec3(age * 50.0 + 0.4, 1.0, 1.0));
+		albedo = hsv2rgb(vec3(age, 1.0, 1.0));
 	}
 
 	out_color = calcLight(normal, pos, lightPos, albedo);
