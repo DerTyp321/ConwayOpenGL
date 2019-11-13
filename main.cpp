@@ -174,6 +174,7 @@ int main(int argc, const char* argv[]){
 	screenShader.addUniform("size");
 	screenShader.addUniform("scale");
 
+	screenShader.addUniform("mousePos");
 
 	Shader conwayShader("res/conway_step.vert", "res/conway_step.frag");
 
@@ -291,9 +292,7 @@ int main(int argc, const char* argv[]){
 			updates++;
 		}
 		if(now - lastSecond >= 1.0){
-			std::stringstream title;
-			title << "Conways Game of Life - " << frames << "FPS, " << updates << "UPS";
-			glfwSetWindowTitle(window, title.str().c_str());
+			std::cout << "Conways Game of Life - " << frames << "FPS, " << updates << "UPS" << std::endl;
 			frames = 0;
 			updates = 0;
 			lastSecond += 1.0;
@@ -303,12 +302,15 @@ int main(int argc, const char* argv[]){
 
 		float scaledWidth = (float)width * scale;
 		float scaledHeight = (float)height * scale;
-		glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(dragging ? offsetX + (mousePosX - dragStartX): offsetX, dragging ? offsetY + (mousePosY - dragStartY) : offsetY, 0.0f));
+		glm::vec2 offset = glm::vec2(dragging ? offsetX + (mousePosX - dragStartX): offsetX, dragging ? offsetY + (mousePosY - dragStartY) : offsetY);
+		glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(offset, 0.0f));
 		model = glm::scale(model, glm::vec3(scaledWidth, scaledHeight, 1.0f));
 		glm::mat4 projection = glm::ortho(0.0f, (float)WIDTH, (float)HEIGHT, 0.0f, -1.0f, 1.0f);
 		glm::mat4 transform = projection * model;
 		screenShader.setUniform("transform", transform);
 		screenShader.setUniform("scale", 0.5f / scale);
+		screenShader.setUniform("mousePos", (glm::vec2((float)mousePosX, (float)mousePosY) - offset) / scale);
+
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, buffers[drawBuffer]);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);

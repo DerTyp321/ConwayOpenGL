@@ -32,7 +32,7 @@ void main(){
 	int color = sampleValue(0, 0);
 	if(color > 0){
 		if(neighbours >= 2 && neighbours <= 3){
-			out_color = vec4((float(color) + 1.1) / 256.0, 0.0, 0.0, 1.0);
+			out_color = vec4((float(neighbours) + 1.1) / 256.0, 0.0, 0.0, 1.0);
 		}else{
 			out_color = vec4(0.0, 0.0, 0.0, 1.0);
 		}
