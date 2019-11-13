@@ -59,7 +59,8 @@ vec4 calcLight(vec3 normal, vec3 pos, vec3 lightPos, vec3 albedo) {
 	vec2 tileCoords = floor(pos.xy);
 
 	vec3 curPos = vec3(0);
-	while (curPos.z < SPHERE_HEIGHT + SPHERE_RADIUS) {
+
+	for(int i = 0; curPos.z < SPHERE_HEIGHT + SPHERE_RADIUS && i < 100; i++) {
 		curPos = pos + t * lightDir;
 
 		if(hasSphere(tileCoords) && rayIntersectsSphere(pos, lightDir, vec3(floor(tileCoords), 0.0) + vec3(0.5, 0.5, SPHERE_HEIGHT), SPHERE_RADIUS)) {
@@ -108,7 +109,7 @@ void main(){
 	float age = texture(tex, pass_texCoords).r;
 	float centerDist = sqrt(dot(inTilePos, inTilePos));
 
-	vec3 lightPos = vec3(mousePos, 500.0 * scale);
+	vec3 lightPos = vec3(mousePos, 500.0 * scale + SPHERE_HEIGHT + SPHERE_RADIUS);
 
 	vec3 normal = vec3(0.0, 0.0, 1.0);
 	vec3 pos = vec3(pass_texCoords * size, 0.0);
